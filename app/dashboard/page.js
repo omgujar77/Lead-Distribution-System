@@ -131,7 +131,7 @@ export default function DashboardPage() {
 
             <p className="text-sm text-gray-500 mb-2">
 
-              Refresh Status
+              Connection Status
 
             </p>
 
@@ -141,9 +141,9 @@ export default function DashboardPage() {
 
               <span className="font-semibold text-gray-800">
 
-                Auto Refresh Active
+               Live Connected
 
-              </span>
+              </span> 
             </div>
           </div>
         </div>
