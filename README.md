@@ -1,4 +1,4 @@
-# Mini Lead Distribution System
+# 💻Mini Lead Distribution System
 
 A real-time lead distribution platform built with **Next.js**, **MongoDB**, **Mongoose**, and **Socket.IO**.
 
@@ -35,7 +35,7 @@ https://lead-distribution-system-fawn.vercel.app/test-tools
 # 🔗 GitHub Repository
 
 ```bash
-https://github.com/your-username/lead-distribution
+https://github.com/omgujar77/Lead-Distribution-System.git
 ```
 
 ---
@@ -293,7 +293,6 @@ Used for:
 
 # 👨‍💼 Provider Dashboard Links
 
-Replace these with your actual deployed links.
 
 ## Provider 1
 
@@ -332,7 +331,7 @@ https://lead-distribution-system-fawn.vercel.app/dashboard/6a0c61cada2a6fe72107d
 ## 1. Clone Repository
 
 ```bash
-git clone https://github.com/your-username/lead-distribution.git
+https://github.com/omgujar77/Lead-Distribution-System.git
 ```
 
 ---
@@ -379,18 +378,6 @@ This creates:
 ```bash
 npm run dev
 ```
-
----
-
-# 🚀 Deployment
-
-Project can be deployed using:
-
-- Vercel
-- Render
-- Railway
-
----
 
 
 # 🧪 Testing Guide
