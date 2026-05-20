@@ -5,47 +5,89 @@ import {
   useState,
 } from "react";
 
-import {
-  getSocket,
-} from "@/lib/socketClient";
-
 export default function DashboardPage() {
 
-  const [messages,
-    setMessages] =
-      useState([]);
+  const [
+    messages,
+    setMessages,
+  ] = useState([]);
 
   // =========================================
-  // SOCKET LISTENER
+  // FETCH DASHBOARD DATA
+  // =========================================
+
+  const fetchDashboardData =
+    async () => {
+
+      try {
+
+        const response =
+          await fetch(
+            "/api/dashboard"
+          );
+
+        const data =
+          await response.json();
+
+        if (data.success) {
+
+          const formatted =
+            data.assignments.map(
+              (item) => ({
+
+                event:
+                  "Lead Assigned",
+
+                providerName:
+                  item.providerId?.name,
+
+                quotaRemaining:
+                  item.providerId
+                    ?.quotaRemaining,
+
+                leadId:
+                  item.leadId?._id,
+
+                leadName:
+                  item.leadId?.name,
+
+                serviceType:
+                  item.leadId
+                    ?.serviceType,
+              })
+            );
+
+          setMessages(
+            formatted.reverse()
+          );
+        }
+
+      } catch (error) {
+
+        console.log(
+          "Dashboard Error:",
+          error
+        );
+      }
+    };
+
+  // =========================================
+  // AUTO REFRESH
   // =========================================
 
   useEffect(() => {
 
-    const socket =
-      getSocket();
+    fetchDashboardData();
 
-    socket.on(
-      "lead-assigned",
-      (data) => {
+    const interval =
+      setInterval(() => {
 
-        console.log(
-          "Lead Assigned Event:",
-          data
-        );
+        fetchDashboardData();
 
-        setMessages((prev) => [
-          data,
-          ...prev,
-        ]);
-      }
-    );
+      }, 5000);
 
-    return () => {
-
-      socket.off(
-        "lead-assigned"
-      );
-    };
+    return () =>
+      clearInterval(interval);
 
   }, []);
 
@@ -73,14 +115,13 @@ export default function DashboardPage() {
 
             <h1 className="text-4xl font-bold text-gray-900">
 
-              Real-Time Dashboard
+              Overall Dashboard
 
             </h1>
 
             <p className="text-gray-500 mt-2 max-w-2xl">
 
-              Monitor live lead assignment activity and provider updates
-              instantly through Socket.IO events.
+              Monitor live lead assignment activity and provider updates.
             </p>
           </div>
 
@@ -90,7 +131,8 @@ export default function DashboardPage() {
 
             <p className="text-sm text-gray-500 mb-2">
 
-              Connection Status
+              Refresh Status
+
             </p>
 
             <div className="flex items-center gap-2">
@@ -99,7 +141,7 @@ export default function DashboardPage() {
 
               <span className="font-semibold text-gray-800">
 
-                Live Connected
+                Auto Refresh Active
 
               </span>
             </div>
@@ -128,17 +170,17 @@ export default function DashboardPage() {
 
             <p className="text-sm text-gray-400 mt-3">
 
-              Real-time socket events received
+              Total lead assignments
             </p>
           </div>
 
-          {/* ACTIVE STREAM */}
+          {/* STREAM STATUS */}
 
           <div className="bg-white border border-gray-200 rounded-3xl shadow-xl p-6">
 
             <p className="text-sm text-gray-500 font-medium uppercase tracking-wide">
 
-              Stream Status
+              Dashboard Status
 
             </p>
 
@@ -155,7 +197,7 @@ export default function DashboardPage() {
 
             <p className="text-sm text-gray-400 mt-3">
 
-              Listening for new assignments
+              Refreshing every 5 seconds
             </p>
           </div>
 
@@ -180,7 +222,7 @@ export default function DashboardPage() {
 
             <p className="text-sm text-gray-400 mt-3">
 
-              Most recent system activity
+              Most recent activity
             </p>
           </div>
         </div>
@@ -197,13 +239,13 @@ export default function DashboardPage() {
 
               <h2 className="text-2xl font-bold text-gray-900">
 
-                Live Event Feed
+                Activity Feed
 
               </h2>
 
               <p className="text-sm text-gray-500 mt-1">
 
-                Incoming lead assignment activity in real time.
+                Recent lead assignment activity.
               </p>
             </div>
 
@@ -229,14 +271,13 @@ export default function DashboardPage() {
 
                 <h3 className="text-2xl font-bold text-gray-800">
 
-                  No Real-Time Events Yet
+                  No Events Yet
 
                 </h3>
 
                 <p className="text-gray-500 mt-3 max-w-md mx-auto">
 
-                  Waiting for lead assignment events from the server.
-                  New activity will appear here automatically.
+                  Waiting for lead assignments.
                 </p>
               </div>
             )
@@ -279,7 +320,8 @@ export default function DashboardPage() {
 
                             <span className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">
 
-                              LIVE
+                              ACTIVE
+
                             </span>
                           </div>
 
@@ -294,7 +336,7 @@ export default function DashboardPage() {
 
                               <p className="font-semibold text-gray-900">
 
-                                {msg?.providerName}
+                                {msg.providerName}
                               </p>
                             </div>
 
@@ -307,22 +349,36 @@ export default function DashboardPage() {
 
                               <p className="font-semibold text-gray-900">
 
-                                {msg?.quotaRemaining}
+                                {msg.quotaRemaining}
                               </p>
                             </div>
 
-                            <div className="bg-gray-100 rounded-xl px-4 py-3 sm:col-span-2">
+                            <div className="bg-gray-100 rounded-xl px-4 py-3">
 
                               <p className="text-gray-500 mb-1">
 
-                                Lead ID
+                                Lead Name
                               </p>
 
-                              <p className="font-semibold text-gray-900 break-all">
+                              <p className="font-semibold text-gray-900">
 
-                                {msg?.leadId}
+                                {msg.leadName}
                               </p>
                             </div>
+
+                            <div className="bg-gray-100 rounded-xl px-4 py-3">
+
+                              <p className="text-gray-500 mb-1">
+
+                                Service Type
+                              </p>
+
+                              <p className="font-semibold text-gray-900">
+
+                                {msg.serviceType}
+                              </p>
+                            </div>
+
                           </div>
                         </div>
                       </div>
