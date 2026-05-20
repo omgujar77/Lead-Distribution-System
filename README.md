@@ -14,10 +14,22 @@ This project automatically distributes customer leads using:
 
 ---
 
-# 🚀 Live Project
-
+# 🚀 Live Project Links
+Customer-Request-Service Page
 ```bash
-https://your-project-name.vercel.app
+https://lead-distribution-system-fawn.vercel.app/request-service
+```
+Admin-Dashboard Page
+```bash
+https://lead-distribution-system-fawn.vercel.app/dashboard
+```
+Provider-Dashboard Page
+```bash
+https://lead-distribution-system-fawn.vercel.app/dashboard/6a0c61cada2a6fe72107d04b
+```
+Test-Tools Page
+```bash
+https://lead-distribution-system-fawn.vercel.app/test-tools
 ```
 
 # 🔗 GitHub Repository
@@ -66,6 +78,8 @@ The system automatically:
 - Assigns providers
 - Updates provider quotas
 - Sends real-time dashboard updates
+- Socket.IO real-time updates work locally using custom Node.js server.
+For deployed Vercel compatibility, dashboard uses auto-refresh polling.
 
 ---
 
@@ -284,31 +298,31 @@ Replace these with your actual deployed links.
 ## Provider 1
 
 ```bash
-https://your-project-name.vercel.app/dashboard/PROVIDER_ID_1
+https://lead-distribution-system-fawn.vercel.app/dashboard/6a0c61cada2a6fe72107d048
 ```
 
 ## Provider 2
 
 ```bash
-https://your-project-name.vercel.app/dashboard/PROVIDER_ID_2
+https://lead-distribution-system-fawn.vercel.app/dashboard/6a0c61cada2a6fe72107d049
 ```
 
 ## Provider 3
 
 ```bash
-https://your-project-name.vercel.app/dashboard/PROVIDER_ID_3
+https://lead-distribution-system-fawn.vercel.app/dashboard/6a0c61cada2a6fe72107d04a
 ```
 
 ## Provider 4
 
 ```bash
-https://your-project-name.vercel.app/dashboard/PROVIDER_ID_4
+https://lead-distribution-system-fawn.vercel.app/dashboard/6a0c61cada2a6fe72107d04b
 ```
 
 ## Provider 5
 
 ```bash
-https://your-project-name.vercel.app/dashboard/PROVIDER_ID_5
+https://lead-distribution-system-fawn.vercel.app/dashboard/6a0c61cada2a6fe72107d04c
 ```
 
 ---
@@ -416,7 +430,7 @@ Open:
 Run:
 
 ```bash
-Generate 10 Concurrent Leads
+Generate 5 Concurrent Leads
 ```
 
 Verify:
